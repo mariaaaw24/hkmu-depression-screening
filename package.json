@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "catboost": "^1.26.0"
+  }
+}

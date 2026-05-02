@@ -1,0 +1,24 @@
+# Web Framework
+Flask
+
+# Core Data Science
+numpy
+pandas
+scipy
+scikit-learn
+
+# Machine Learning Models
+xgboost
+catboost
+imbalanced-learn
+joblib
+threadpoolctl
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# File Handling
+openpyxl
+xlrd

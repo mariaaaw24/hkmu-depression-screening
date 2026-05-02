@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Feature Extraction Workflow - HKMU Depression Screening">
+    <title>Feature Extraction | HKMU</title>
+    <style>
+        :root {
+            --primary: #2c5aa0;
+            --secondary: #d32f2f;
+            --success: #388e3c;
+            --light: #f8f9fa;
+            --dark: #1a1a1a;
+            --gray: #666666;
+            --light-gray: #f5f7fa;
+            --border-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8f0fe 100%);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .university-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3a6c 100%);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 26px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        .hero p {
+            font-size: 15px;
+            opacity: 0.95;
+            margin-top: 8px;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 35px;
+        }
+        
+        .step {
+            background: #e8f4fd;
+            border-left: 5px solid var(--primary);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .step h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 19px;
+            font-weight: 600;
+        }
+        
+        .step ul {
+            padding-left: 25px;
+            line-height: 1.8;
+        }
+        
+        .step li {
+            margin-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            text-align: left;
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        tr:hover {
+            background: #f0f7ff;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 25px;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+            border: 2px solid var(--primary);
+        }
+        
+        .back-btn:hover {
+            background: #1a3a6c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.25);
+            border-color: #1a3a6c;
+        }
+        
+        .footer {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+        
+        .copyright {
+            font-size: 12px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 25px;
+            }
+            
+            table {
+                font-size: 13px;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+            
+            .hero {
+                padding: 25px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 22px;
+            }
+            
+            .logo-container {
+                gap: 15px;
+            }
+            
+            .logo {
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='HKMU-logo.png') }}" alt="HKMU Logo" class="logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%2260%22 viewBox=%220 0 120 60%22><rect width=%22120%22 height=%2260%22 fill=%22%232c5aa0%22/><text x=%2260%22 y=%2235%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22white%22 text-anchor=%22middle%22>HKMU</text></svg>'">
+            <div class="university-name">
+                <div>Hong Kong Metropolitan University</div>
+                <div style="font-size: 13px; font-weight: normal; color: var(--gray); margin-top: 3px;">School of Science and Technology</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" role="main">
+        <div class="hero">
+            <h1>Feature Extraction Workflow</h1>
+            <p>How Behavioral Features Are Extracted for Depression Screening</p>
+        </div>
+        
+        <div class="content">
+            <div class="step">
+                <h2>Step 1: OpenFace 2.0 Feature Extraction</h2>
+                <p>From clinical interview videos, OpenFace extracts these <strong>session-level aggregated features</strong>:</p>
+                <ul>
+                    <li><strong>Head Pose:</strong> Roll, Pitch, Yaw angles → aggregated as (mean, std, max)</li>
+                    <li><strong>Eye Gaze:</strong> Normalized (x, y) coordinates → aggregated as (mean, std, max)</li>
+                    <li><strong>Facial Action Units (FAUs):</strong> Intensities of 17 key muscle movements (e.g., AU04=brow lowerer, AU12=lip corner puller)</li>
+                    <li><strong>Blink Dynamics:</strong> Frequency and duration per session</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h2>Step 2: Quaternion Encoding (Our Innovation)</h2>
+                <ul>
+                    <li>Head pose (roll, pitch, yaw) → converted to 4D quaternion: <code>q = [w, x, y, z]</code></li>
+                    <li>Preserves 3D rotational structure (avoids gimbal lock at pitch = ±90°)</li>
+                    <li>Enables QSSA to capture psychomotor retardation patterns characteristic of depression</li>
+                    <li><strong>Clinical relevance:</strong> Depression manifests as coordinated 3D postural patterns (slumped torso + downward head tilt), not isolated joint angles</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h2>Step 3: Privacy-Preserving Transmission</h2>
+                <ul>
+                    <li>Only the <strong>numerical feature vector</strong> is transmitted to screening server</li>
+                    <li>Full video/audio remains on local device — never stored or transmitted</li>
+                    <li>Participant identifiers are anonymized session tokens (no PII)</li>
+                </ul>
+            </div>
+            
+            <h2 style="color: var(--primary); margin: 30px 0 15px 0; font-weight: 600;">Sample OpenFace Output</h2>
+            <p style="margin-bottom: 15px;"><em>Participant: dev_001 (DAIC-WOZ Development Set)</em></p>
+            
+            <table aria-label="Sample OpenFace feature extraction output">
+                <thead>
+                    <tr>
+                        <th>Feature Type</th>
+                        <th>Aggregated Values (Session-Level)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Head Pitch (radians)</td>
+                        <td>Mean: -0.43, Std: 0.02, Max: -0.40</td>
+                    </tr>
+                    <tr>
+                        <td>Eye Gaze (x-coordinate)</td>
+                        <td>Mean: 0.13, Std: 0.02, Max: 0.16</td>
+                    </tr>
+                    <tr>
+                        <td>FAU12 (Lip Corner Puller - Smile)</td>
+                        <td>Mean: 0.03, Std: 0.01, Max: 0.06</td>
+                    </tr>
+                    <tr>
+                        <td>FAU04 (Brow Lowerer)</td>
+                        <td>Mean: 0.18, Std: 0.03, Max: 0.25</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="step">
+                <h2>Privacy & Ethics Compliance</h2>
+                <ul>
+                    <li><strong>DAIC-WOZ Protocol:</strong> All data is anonymized per USC IRB requirements</li>
+                    <li><strong>No PII Storage:</strong> Participant names, DOB, contact info never collected</li>
+                    <li><strong>Local Processing:</strong> Feature extraction occurs on user's device</li>
+                    <li><strong>Data Minimization:</strong> Only aggregated numerical features transmitted</li>
+                </ul>
+            </div>
+            
+            <a href="/" class="back-btn" aria-label="Return to screening tool">
+                ← Back to Screening Tool
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer" role="contentinfo">
+        <div class="copyright">
+            <p>© 2026 Hong Kong Metropolitan University. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 11px;">
+                Developed by: Maria Dharshini | Supervised by: Dr. Kevin Hung, Dr. Gary Man-Tat Man<br>
+                Paper: "Quaternion-Based Representation for Visual Depression Detection" | IEEE ISCAIE 2026
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
