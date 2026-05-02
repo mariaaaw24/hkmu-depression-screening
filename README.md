@@ -25,19 +25,17 @@ The system achieves an **F1-score of 0.80 (+27% vs. 3D baseline)** and **doubles
 
 ## 📁 Project Structure
 HKMUResearch/
-├── data/               # Pre-extracted feature matrices (.xls) & label files
-├── models/             # Serialized models (.pkl) & scalers
-├── Minimal_prototype/  # Flask web demonstrator
-│   ├── app.py
-│   ├── templates/      # HTML views
-│   └── static/         # HKMU-logo, styles, scripts
-├── python files/       # Training & evaluation pipelines
-│   ├── H2.py, E2.py, BH2.py, BE2.py   # Official DAIC-WOZ protocol scripts
-│   └── H.py, E.py, BH.py, BE.py       # Exploratory/internal validation scripts
-├── requirements.txt    # Project dependencies
-└── README.md           # This file
-
----
+├── data/                       # Pre-extracted feature matrices (.xls) & label files
+├── models/                     # Serialized models (.pkl) & scalers
+├── Minimal_prototype/          # Flask web demonstrator
+│   ├── app.py                  # Flask entry point
+│   ├── templates/              # HTML views
+│   └── static/                 # HKMU-logo, styles, scripts
+├── python files/               # Training & evaluation pipelines
+│   ├── H2.py, E2.py, ...       # Official DAIC-WOZ protocol scripts
+│   └── H.py, E.py, ...         # Exploratory/internal validation scripts
+├── requirements.txt            # Project dependencies
+└── README.md                   # Project documentation
 
 ## 🛠️ Setup & Installation
 This project is designed to run using a global Python installation.
